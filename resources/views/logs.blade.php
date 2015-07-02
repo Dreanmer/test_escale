@@ -1,18 +1,34 @@
 @extends('base')
 @section('content')
-<h3>Access code: {{ $code }} </h3>
 
-<p>{{ $message }}</p>
+    <h2 class="sub-header">Logs</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+                <th>Header</th>
+            </tr>
+            </thead>
+            <tbody>
+            @forelse ($users as $user)
+                <tr>
+                    <td>1,001</td>
+                    <td>Lorem</td>
+                    <td>ipsum</td>
+                    <td>dolor</td>
+                    <td>sit</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5">Sem Registros</td>
+                </tr>
+            @endforelse
+            </tbody>
+        </table>
+    </div>
 
-<form class="form-where-u" method="post">
-    {!! csrf_field() !!}
-    <h2 class="form-where-u-heading">Onde você esta?</h2>
-    <label for="inputCep" class="sr-only">Cep</label>
-    <input type="text" name="cep" id="inputCep" class="form-control" placeholder="CEP" required value="{{ $cep }}">
-    <label for="inputCity" class="sr-only">Cidade</label>
-    <input type="text" name="city" id="inputCity" class="form-control" placeholder="Cidade" value="{{ $city }}" required disabled>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Enviar</button>
-</form>
-
-<a href="{{ url('logs') }}">Ver Logs.</a> <a href="{{ url('clearSession') }}">Clear Session.</a>
 @endsection

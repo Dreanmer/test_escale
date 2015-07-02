@@ -20,7 +20,9 @@ class logsController extends Controller
      */
     public function index()
     {
-        //
+        $logs = AccessLog::all();
+
+		return view('logs', compact('logs'));
     }
 
     /**
@@ -42,14 +44,4 @@ class logsController extends Controller
 
 		return redirect('/');
 	}
-
-	/**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function firstAccess(Request $request)
-    {
-        var_dump($request);
-    }
 }
