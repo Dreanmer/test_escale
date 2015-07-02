@@ -1,15 +1,22 @@
 $(function(){
    $('#inputCep').mask('99999-999',{completed: function(){
-       var $this = $(this);
-       setTimeout(function(){
-           var cep = $this.val();
-           if(cep.replace(/\D/g,'').length == 8){
-               $this.attr('disabled');
-               $.getJSON('getAddress/'+cep)
-                   .success(function(data){
-                       console.log(data);
-                   });
-           }
-       }, 100);
+       var $this = $(this),
+           cep = $this.val(),
+           $city = $('#inputCity');
+
+           $this.attr('disabled', true);
+
+           $.getJSON('getAddress/'+cep)
+               .success(function(data){
+                   if(data.Cidade)
+                       $city.val(data.Cidade);
+                   else
+                       $city.removeAttr('disabled');
+                   $this.removeAttr('disabled');
+               })
+               .error(function(){
+                   $city.removeAttr('disabled');
+                   $this.removeAttr('disabled');
+               });
    }});
 });
