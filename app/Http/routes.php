@@ -12,11 +12,8 @@
 */
 
 Route::get('/', ['middleware' => 'log', function () {
-	$code = Session::get('code');
-	$message = Session::get('message');
-	$cep = Session::get('cep');
-	$city = Session::get('city');
-    return view('welcome', compact('code', 'message', 'cep', 'city'));
+	$data = Session::all();
+    return view('welcome', compact('data'));
 }]);
 
 Route::post('/', 'logsController@store');

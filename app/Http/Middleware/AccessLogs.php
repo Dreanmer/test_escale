@@ -12,11 +12,10 @@ class AccessLogs
 {
     public function handle($request, Closure $next)
     {
-		$ip = !$request->ip ? '200.158.212.172' : $request->ip;
-		$ip_data = Location::get($ip);
-		$localisation = implode(' ', [$ip_data->countryName, $ip_data->regionName, $ip_data->cityName, $ip_data->zipCode, "[".$ip_data->latitude.",".$ip_data->longitude."]"]);
 
-		if(!$request->session()->get('code')){
+		$ip = !$request->ip ? '200.158.212.172' : $request->ip;
+
+		if(!$request->session()->get('visitor_id')){
 
 			$code = str_random(3);
 
@@ -24,18 +23,29 @@ class AccessLogs
 			$visitor->code = $code;
 			$visitor->save();
 
-			Session::set('code', $code);
-			Session::set('visitor_id', $visitor->id);
+			$ip_data = Location::get($ip);
 
-		}else{
+			Session::put('code', $code);
+			Session::put('visitor_id', $visitor->id);
+			Session::put('ip_data', $ip_data);
+			Session::put('ip', $ip);
 
-			$visitor = Visitor::find(session('visitor_id'));
+		}else {
+
+			if ($ip == Session::get('ip'))
+				$ip_data = Session::get('ip_data');
+			else
+				$ip_data = Location::get($ip);
+
+			$visitor = Visitor::find(Session::get('visitor_id'));
 
 		};
 
+		$localisation = implode(' ', [$ip_data->countryName, $ip_data->regionName, $ip_data->cityName, $ip_data->zipCode, "[".$ip_data->latitude.",".$ip_data->longitude."]"]);
+
 		$access = new AccessLog();
 		$access->ip = $ip;
-		$access->approximate_local = $localisation;
+		$access->approximate_location = $localisation;
 
 		$visitor->logs()->save($access);
 

@@ -10,6 +10,8 @@ $(function(){
                .success(function(data){
                    if(data.Cidade) {
                        $city.val(data.Cidade);
+                       $city.removeAttr('disabled');
+                       $this.removeAttr('disabled');
                        $this.closest('form').submit();
                    }else
                        $city.removeAttr('disabled');

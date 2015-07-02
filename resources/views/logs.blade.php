@@ -6,21 +6,39 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
+                <th><a href="{{ url('logs/code') }}">Code</a></th>
+                <th><a href="{{ url('logs/access') }}">Acessos</a></th>
+                <th><a href="{{ url('logs/ip') }}">IPS</a></th>
+                <th><a href="{{ url('logs/city') }}">Localização Informada</a></th>
+                <th><a href="{{ url('logs/approximate_location') }}">Localização Capturada (ip)</a></th>
+                <th><a href="{{ url('logs/created_at') }}">Primeiro Acesso</a></th>
             </tr>
             </thead>
             <tbody>
-            @forelse ($users as $user)
+            @forelse ($visitors as $visitor)
                 <tr>
-                    <td>1,001</td>
-                    <td>Lorem</td>
-                    <td>ipsum</td>
-                    <td>dolor</td>
-                    <td>sit</td>
+                    <td>{{ $visitor['code'] }}</td>
+                    <td>{{ $visitor['logs']->count() }}</td>
+                    <td>
+                        <ul>
+                        @foreach($visitor['logs']->unique('ip') as $log)
+                            <li>{{ $log['ip'] }}</li>
+                        @endforeach
+                        </ul>
+                    </td>
+                    @if(!$visitor['cep'])
+                    <td>não informado</td>
+                    @else
+                    <td> {{ $visitor['cep'] }} ({{ $visitor['city'] }})</td>
+                    @endif
+                    <td>
+                        <ul>
+                            @foreach($visitor['logs']->unique('ip') as $log)
+                                <li>{{ $log['approximate_location'] }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>{{ date("d/m/Y",strtotime($visitor['created_at'] )) }} {{ date("H:i:s",strtotime($visitor['created_at'] )) }}</td>
                 </tr>
             @empty
                 <tr>
@@ -29,6 +47,7 @@
             @endforelse
             </tbody>
         </table>
+        <?php echo $visitors->render(); ?>
     </div>
 
 @endsection
