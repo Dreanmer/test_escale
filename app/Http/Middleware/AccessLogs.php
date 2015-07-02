@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Visitor;
 use App\AccessLog;
 use Closure;
+use Illuminate\Support\Facades\Session;
 
 class AccessLogs
 {
@@ -22,8 +23,8 @@ class AccessLogs
 
 			$visitor->logs()->save($access);
 
-			session(['code' => $code]);
-			session(['visitor_id' => $visitor->id]);
+			Session::set('code', $code);
+			Session::set('visitor_id', $visitor->id);
 		};
 
         return $next($request);

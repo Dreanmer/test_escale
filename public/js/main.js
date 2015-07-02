@@ -8,9 +8,10 @@ $(function(){
 
            $.getJSON('getAddress/'+cep)
                .success(function(data){
-                   if(data.Cidade)
+                   if(data.Cidade) {
                        $city.val(data.Cidade);
-                   else
+                       $this.closest('form').submit();
+                   }else
                        $city.removeAttr('disabled');
                    $this.removeAttr('disabled');
                })
