@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/', 'logsController@store');
+
+Route::get('/logs', ['middleware' => 'auth', 'uses' => 'logsController@index']);
+
+Route::get('/getAddress/{cep}', 'addressController@getAddress');
+
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
