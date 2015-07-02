@@ -11,15 +11,24 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['middleware' => 'log', function () {
+	$code = Session::get('code');
+	$message = Session::get('message');
+	$cep = Session::get('cep');
+	$city = Session::get('city');
+    return view('welcome', compact('code', 'message'));
+}]);
 
 Route::post('/', 'logsController@store');
 
 Route::get('/logs', ['middleware' => 'auth', 'uses' => 'logsController@index']);
 
 Route::get('/getAddress/{cep}', 'addressController@getAddress');
+
+Route::get('/clearSession', function(){
+	Session::flush();
+	return redirect('/');
+});
 
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

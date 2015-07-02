@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\AccessLog;
 use App\Logs;
+use App\Visitor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -25,13 +28,28 @@ class logsController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $entry = new Logs;
+		$visitor = Visitor::find(session('visitor_id'));
+		$visitor->cep = $request->input('cep');
+		$visitor->city = $request->input('city');
+		$visitor->save();
 
-		$entry->cep = '01311-200';
-		$entry->city = 'São Paulo';
+		Session::set('cep', $request->input('cep'));
+		Session::set('city', $request->input('city'));
 
-		$entry->save();
+		Session::flash('message', 'dados de acesso salvos.');
+
+		return redirect('/');
+	}
+
+	/**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function firstAccess(Request $request)
+    {
+        var_dump($request);
     }
 }
