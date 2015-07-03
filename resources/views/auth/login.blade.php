@@ -1,6 +1,6 @@
 @extends('base')
 @section('content')
-    <form class="form-where-u" method="POST" action="/auth/login">
+    <form class="form-where-u" method="POST" action="{{url('auth/login')}}">
         {!! csrf_field() !!}
         <h2 class="form-where-u-heading">Login</h2>
         <label for="inputEmail" class="sr-only">Email</label>

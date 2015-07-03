@@ -19,6 +19,7 @@ Route::get('/', ['middleware' => 'log', function () {
 Route::post('/', 'logsController@store');
 
 Route::get('/logs', ['middleware' => 'auth', 'uses' => 'logsController@index']);
+Route::get('/logs/{order?}/{direction?}', ['middleware' => 'auth', 'uses' => 'logsController@index']);
 
 Route::get('/getAddress/{cep}', 'addressController@getAddress');
 
