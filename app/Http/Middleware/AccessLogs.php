@@ -13,7 +13,7 @@ class AccessLogs
     public function handle($request, Closure $next)
     {
 
-		$ip = !$request->ip ? '200.158.212.172' : $request->ip;
+		$ip = !$request->ip() ? '200.158.212.172' : $request->ip();
 
 		if(!$request->session()->get('visitor_id')){
 
