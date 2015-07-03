@@ -42,7 +42,7 @@
             @if(isset($session['message']))
                 <div class="alert alert-info alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <strong>Warning!</strong>{{{$session['message']}}}
+                    {{{$session['message']}}}
                 </div>
             @endif
             @yield('content')

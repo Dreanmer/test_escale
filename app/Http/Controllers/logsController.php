@@ -15,7 +15,7 @@ class logsController extends Controller
      *
      * @return Response
      */
-    public function index($order = "visitor.created_at", $direction = "asc")
+    public function index($order = "visitor.created_at", $direction = "desc")
     {
 		$logs = (new Visitor())->listLogs($order, $direction);
 
