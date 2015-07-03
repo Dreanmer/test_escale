@@ -39,8 +39,8 @@
         </nav>
 
         <div class="container">
-            @if(isset($data['message']))
-                <div class="alert alert-success" role="alert">{{{$data['message']}}}</div>
+            @if(isset($session['message']))
+                <div class="alert alert-success" role="alert">{{{$session['message']}}}</div>
             @endif
             @yield('content')
         </div>
