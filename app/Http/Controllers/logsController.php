@@ -22,7 +22,7 @@ class logsController extends Controller
 							->select('*', DB::raw('count(access_log.ip) as hits'))
 							->groupBy('code')
 							->orderBy($order, $direction)
-							->paginate(3);
+							->paginate(10);
 
 		return view('logs', compact('visitors', 'order', 'direction'));
     }
