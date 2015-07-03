@@ -23,7 +23,7 @@
                     @if(!$log['cep'])
                     <td>não informado</td>
                     @else
-                    <td> {{ $log['cep'] }} ({{ $log['city'] }})</td>
+                    <td>{{ $log['cep'] }}<br/><small>{{ $log['city'] }}</small></td>
                     @endif
                     <td>{{ $log['approximate_location'] }}</td>
                     <td>{{ date("d/m/Y",strtotime($log['created_at'] )) }} {{ date("H:i:s",strtotime($log['created_at'] )) }}</td>

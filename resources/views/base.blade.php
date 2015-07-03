@@ -15,8 +15,35 @@
     </head>
     <body>
 
+        <nav class="navbar navbar-default">
+            <div class="container">
+                @if(isset($session['code']))
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/" class="navbar-brand">Code: {{ $session['code'] }}</a>
+                </div>
+                @endif
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav pull-right">
+                        <li><a href="{{ url('logs') }}">Ver Logs</a></li>
+                        <li><a href="{{ url('clearSession') }}">Clear Session</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
         <div class="container">
+            @if(isset($data['message']))
+                <div class="alert alert-success" role="alert">{{{$data['message']}}}</div>
+            @endif
             @yield('content')
         </div>
+
     </body>
 </html>

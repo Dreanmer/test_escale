@@ -7,7 +7,14 @@
         <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required value="{{ old('email') }}">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        <p>usuario: admin@test.com senha: password</p>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+        <div class="panel panel-default m-t">
+            <div class="panel-body">
+                <ul>
+                    <li>usuario: admin@test.com</li>
+                    <li>senha: password</li>
+                </ul>
+            </div>
+        </div>
     </form>
 @endsection
