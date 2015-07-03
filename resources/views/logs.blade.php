@@ -15,18 +15,18 @@
             </tr>
             </thead>
             <tbody>
-            @forelse ($visitors as $visitor)
+            @forelse ($logs as $log)
                 <tr>
-                    <td>{{ $visitor['code'] }}</td>
-                    <td>{{ $visitor['hits'] }}</td>
-                    <td>{{ $visitor['ip'] }}</td>
-                    @if(!$visitor['cep'])
+                    <td>{{ $log['code'] }}</td>
+                    <td>{{ $log['hits'] }}</td>
+                    <td>{{ $log['ip'] }}</td>
+                    @if(!$log['cep'])
                     <td>não informado</td>
                     @else
-                    <td> {{ $visitor['cep'] }} ({{ $visitor['city'] }})</td>
+                    <td> {{ $log['cep'] }} ({{ $log['city'] }})</td>
                     @endif
-                    <td>{{ $visitor['approximate_location'] }}</td>
-                    <td>{{ date("d/m/Y",strtotime($visitor['created_at'] )) }} {{ date("H:i:s",strtotime($visitor['created_at'] )) }}</td>
+                    <td>{{ $log['approximate_location'] }}</td>
+                    <td>{{ date("d/m/Y",strtotime($log['created_at'] )) }} {{ date("H:i:s",strtotime($log['created_at'] )) }}</td>
                 </tr>
             @empty
                 <tr>
@@ -35,7 +35,7 @@
             @endforelse
             </tbody>
         </table>
-        <?php echo $visitors->render(); ?>
+        <?php echo $logs->render(); ?>
     </div>
 
 @endsection

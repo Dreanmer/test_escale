@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Visitor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 use App\Http\Requests;
@@ -18,13 +17,9 @@ class logsController extends Controller
      */
     public function index($order = "visitor.created_at", $direction = "asc")
     {
-		$visitors = Visitor::join('access_log', 'access_log.visitor_id', '=', 'visitor.id')
-							->select('*', DB::raw('count(access_log.ip) as hits'))
-							->groupBy('code')
-							->orderBy($order, $direction)
-							->paginate(10);
+		$logs = (new Visitor())->listLogs($order, $direction);
 
-		return view('logs', compact('visitors', 'order', 'direction'));
+		return view('logs', compact('logs', 'order', 'direction'));
     }
 
 	/**
