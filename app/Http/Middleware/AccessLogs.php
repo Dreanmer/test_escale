@@ -30,7 +30,7 @@ class AccessLogs
 			Session::put('ip_data', $ip_data);
 			Session::put('ip', $ip);
 
-		}else {
+		} else {
 
 			if ($ip == Session::get('ip'))
 				$ip_data = Session::get('ip_data');

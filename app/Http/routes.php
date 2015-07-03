@@ -12,8 +12,8 @@
 */
 
 Route::get('/', ['middleware' => 'log', function () {
-	$data = Session::all();
-    return view('welcome', compact('data'));
+	$session = Session::all();
+    return view('welcome', compact('session'));
 }]);
 
 Route::post('/', 'logsController@store');
